@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
         return userDao.selectAll();
     }
 
+    @Override
+    public Boolean transferPoint(Integer fromId, Integer toId, Integer points) {
+        return userDao.transferPoint(fromId, toId, points);
+    }
+
 }

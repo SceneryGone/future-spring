@@ -10,9 +10,20 @@
         <result property="deleted" column="deleted" jdbcType="TINYINT"/>
     </resultMap>
 
+    <update id="updateByPrimaryId" parameterType="com.future.db.User">
+        update t_user set points = #{points}
+        where id = #{id}
+    </update>
+
     <select id="selectAll" resultMap="BASEMAP">
         select *
         from `t_user`
+    </select>
+
+    <select id="selectById" resultMap="BASEMAP">
+        select *
+        from `t_user`
+        where id = #{id}
     </select>
 
 </mapper>

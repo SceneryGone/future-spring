@@ -17,8 +17,26 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> selectAll() {
-        final SqlSession sqlSession = SqlSessionUtil.openSession();
-        final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        return mapper.selectAll();
+        try (SqlSession sqlSession = SqlSessionUtil.openSession()) {
+            final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            return mapper.selectAll();
+        }
     }
+
+    @Override
+    public Boolean transferPoint(Integer fromId, Integer toId, Integer points) {
+        try (SqlSession sqlSession = SqlSessionUtil.openSession()) {
+            final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            User fromUser = mapper.selectById(fromId);
+            User toUser = mapper.selectById(toId);
+
+            fromUser.setPoints(fromUser.getPoints() - points);
+            toUser.setPoints(toUser.getPoints() + points);
+
+            mapper.updateByPrimaryId(fromUser);
+            mapper.updateByPrimaryId(toUser);
+        }
+        return Boolean.TRUE;
+    }
+
 }

@@ -14,4 +14,5 @@ public interface UserService {
 
     List<User> selectAll();
 
+    Boolean transferPoint(Integer fromId, Integer toId, Integer points);
 }

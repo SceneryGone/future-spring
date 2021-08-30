@@ -26,7 +26,7 @@ public class SqlSessionUtil {
     }
 
     public static SqlSession openSession() {
-        return SESSION_FACTORY.openSession();
+        return SESSION_FACTORY.openSession(true);
     }
 
 }

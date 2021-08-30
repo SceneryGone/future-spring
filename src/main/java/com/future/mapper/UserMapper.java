@@ -14,4 +14,7 @@ public interface UserMapper {
 
     List<User> selectAll();
 
+    User selectById(Integer fromId);
+
+    int updateByPrimaryId(User fromUser);
 }
