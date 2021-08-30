@@ -19,8 +19,12 @@ public class User {
 
     private Integer id;
 
-    private String name;
+    private String username;
 
-    private Integer age;
+    private Integer points;
+
+    private String version;
+
+    private Integer deleted;
 
 }
