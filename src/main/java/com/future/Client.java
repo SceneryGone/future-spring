@@ -11,12 +11,8 @@ import com.future.service.UserService;
  */
 public class Client {
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) {
         final UserService userService = (UserService) BeanFactory.getBean("userService");
         userService.selectAll().forEach(System.out::println);
-//        final Class<?> aClass = Class.forName("com.future.service.UserServiceImpl");
-//        UserService userService = (UserService) aClass.newInstance();
-//        userService.selectAll().forEach(System.out::println);
-
     }
 }

@@ -3,6 +3,8 @@
 
     <bean id="userDao" class="com.future.dao.UserDaoImpl"/>
 
-    <bean id="userService" class="com.future.service.UserServiceImpl"/>
+    <bean id="userService" class="com.future.service.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
 
 </beans>

@@ -2,7 +2,6 @@ package com.future.service;
 
 import com.future.dao.UserDao;
 import com.future.db.User;
-import com.future.factory.BeanFactory;
 
 import java.util.List;
 
@@ -14,7 +13,11 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao = (UserDao) BeanFactory.getBean("userDao");
+    private UserDao userDao;
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public List<User> selectAll() {

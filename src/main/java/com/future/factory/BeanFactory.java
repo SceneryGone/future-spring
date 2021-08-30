@@ -28,11 +28,11 @@ public class BeanFactory {
         XmlBeanConfigBuilder.parse(BEAN_MAP, "beans.xml");
     }
 
-    public static Object getBean(String beanName) {
-        final Object bean = BEAN_MAP.get(beanName);
+    public static Object getBean(String beanId) {
+        final Object bean = BEAN_MAP.get(beanId);
         if (Objects.isNull(bean)) {
-            log.error("not found " + beanName);
-            throw new BeanNotFoundException("not found " + beanName);
+            log.error("not found " + beanId);
+            throw new BeanNotFoundException(beanId + "not found ");
         }
 
         return bean;
