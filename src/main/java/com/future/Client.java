@@ -2,12 +2,9 @@ package com.future;
 
 import com.future.db.User;
 import com.future.factory.BeanFactory;
+import com.future.factory.ProxyFactory;
 import com.future.service.UserService;
-import com.future.util.SqlSessionUtil;
-import org.apache.ibatis.session.SqlSession;
-import sun.jvm.hotspot.utilities.Assert;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -23,6 +20,8 @@ public class Client {
 
         final Client client = new Client();
 
+        client.testProxyTransfer();
+
 //        final Class<?> aClass = Class.forName("com.future.Client");
 //        final Object client = aClass.newInstance();
 //        final Method method = aClass.getDeclaredMethod("testTransfer", null);
@@ -30,6 +29,12 @@ public class Client {
 
 //        client.testTransfer();
 //        client.selectAll();
+    }
+
+    private void testProxyTransfer() {
+        final UserService userService = (UserService) BeanFactory.getInstance().getBean("userService");
+        UserService proxy = (UserService) ProxyFactory.wrap(userService);
+        proxy.transferPoint(1, 2, 1);
     }
 
     private void selectAll() {

@@ -3,7 +3,6 @@ package com.future.service;
 import com.future.dao.UserDao;
 import com.future.db.User;
 import com.future.exception.BizException;
-import com.future.util.TransactionManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -30,7 +29,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void transferPoint(Integer fromId, Integer toId, Integer points) {
-        TransactionManager.getInstance().begin();
         User fromUser = userDao.selectById(fromId);
         if (fromUser.getPoints() <= 0) {
             throw new BizException("积分余额不足");
@@ -44,7 +42,6 @@ public class UserServiceImpl implements UserService {
         // 更新积分
         userDao.update(fromUser);
         userDao.update(toUser);
-        TransactionManager.getInstance().commit();
     }
 
 }
