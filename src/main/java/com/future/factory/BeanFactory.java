@@ -25,7 +25,7 @@ public class BeanFactory {
 
     static {
         log.info("begin loading bean...");
-        XmlBeanConfigBuilder.parse(BEAN_MAP, "beans.xml");
+        XmlBeanConfigBuilder.getInstance().parse(BEAN_MAP, "beans.xml");
     }
 
     public static Object getBean(String beanId) {

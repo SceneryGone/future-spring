@@ -20,11 +20,17 @@ import java.util.Map;
 @Slf4j
 public class XmlBeanConfigBuilder {
 
+    private static final XmlBeanConfigBuilder INSTANCE = new XmlBeanConfigBuilder();
+
     private XmlBeanConfigBuilder() {
 
     }
 
-    public static void parse(Map<String, Object> beanMap, String path) {
+    public static XmlBeanConfigBuilder getInstance() {
+        return INSTANCE;
+    }
+
+    public void parse(Map<String, Object> beanMap, String path) {
         InputStream inputStream = Resources.getResourceAsStream(path);
         final Document document;
         try {

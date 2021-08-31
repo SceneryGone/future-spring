@@ -17,21 +17,21 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> selectAll() {
-        SqlSession sqlSession = SqlSessionUtil.openSession();
+        SqlSession sqlSession = SqlSessionUtil.getInstance().openSession();
         final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         return mapper.selectAll();
     }
 
     @Override
     public User selectById(Integer id) {
-        SqlSession sqlSession = SqlSessionUtil.openSession();
+        SqlSession sqlSession = SqlSessionUtil.getInstance().openSession();
         final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         return mapper.selectById(id);
     }
 
     @Override
     public int update(User user) {
-        SqlSession sqlSession = SqlSessionUtil.openSession();
+        SqlSession sqlSession = SqlSessionUtil.getInstance().openSession();
         final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         return mapper.updateByPrimaryId(user);
     }

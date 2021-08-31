@@ -19,10 +19,15 @@ public class SqlSessionUtil {
 
     }
 
+    private static final SqlSessionUtil INSTANCE = new SqlSessionUtil();
+
+    public static SqlSessionUtil getInstance() {
+        return INSTANCE;
+    }
+
     private static final ThreadLocal<SqlSession> THREAD_SQL_SESSION = new ThreadLocal<>();
 
     private static final SqlSessionFactory SESSION_FACTORY;
-
 
     static {
         final InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
@@ -32,7 +37,7 @@ public class SqlSessionUtil {
     /**
      * 功能描述: 从当前线程获取链接
      */
-    public static SqlSession openSession() {
+    public SqlSession openSession() {
         SqlSession sqlSession = THREAD_SQL_SESSION.get();
         if (Objects.isNull(sqlSession)) {
             sqlSession = SESSION_FACTORY.openSession(false);
@@ -42,11 +47,7 @@ public class SqlSessionUtil {
         return sqlSession;
     }
 
-    public static void commit() {
-        try (SqlSession sqlSession = THREAD_SQL_SESSION.get()) {
-            sqlSession.commit();
-        }
-
+    public void remove() {
         // 从ThreadLocal中移除
         THREAD_SQL_SESSION.remove();
     }
