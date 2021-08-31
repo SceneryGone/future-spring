@@ -34,7 +34,7 @@ public class BeanFactory {
         final Object bean = BEAN_MAP.get(beanId);
         if (Objects.isNull(bean)) {
             log.error("not found " + beanId);
-            throw new BeanNotFoundException(beanId + "not found ");
+            throw new BeanNotFoundException(beanId + " not found ");
         }
 
         return bean;

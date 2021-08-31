@@ -14,11 +14,17 @@ import java.lang.reflect.Proxy;
 @Slf4j
 public class ProxyFactory {
 
-    public static Object wrap(Object target) {
+    private TransactionManager transactionManager;
+
+    public void setTransactionManager(TransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
+
+    public Object wrap(Object target) {
         return proxy(target);
     }
 
-    private static Object proxy(Object target) {
+    private Object proxy(Object target) {
         return Proxy.newProxyInstance(
                 target.getClass().getClassLoader(),
                 target.getClass().getInterfaces(),
@@ -26,20 +32,17 @@ public class ProxyFactory {
                     System.out.println("-----方法拦截-----");
                     final Object invoke;
                     try {
-                        TransactionManager.getInstance().begin();
+                        transactionManager.begin();
                         invoke = method.invoke(target, args);
-                        TransactionManager.getInstance().commit();
+                        transactionManager.commit();
                     } catch (Exception e) {
                         log.error("call exception : " + e);
                         return e;
                     } finally {
-                        TransactionManager.getInstance().rollback();
+                        transactionManager.rollback();
                     }
                     return invoke;
                 });
     }
 
-    private ProxyFactory() {
-
-    }
 }

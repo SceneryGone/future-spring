@@ -33,7 +33,8 @@ public class Client {
 
     private void testProxyTransfer() {
         final UserService userService = (UserService) BeanFactory.getInstance().getBean("userService");
-        UserService proxy = (UserService) ProxyFactory.wrap(userService);
+        ProxyFactory proxyFactory = (ProxyFactory) BeanFactory.getInstance().getBean("proxyFactory");
+        UserService proxy = (UserService) proxyFactory.wrap(userService);
         proxy.transferPoint(1, 2, 1);
     }
 

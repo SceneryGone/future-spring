@@ -15,8 +15,6 @@ import java.util.Objects;
  */
 public class SqlSessionUtil {
 
-    private static final SqlSessionUtil INSTANCE = new SqlSessionUtil();
-
     private static final ThreadLocal<SqlSession> THREAD_SQL_SESSION = new ThreadLocal<>();
 
     private static final SqlSessionFactory SESSION_FACTORY;
@@ -26,14 +24,19 @@ public class SqlSessionUtil {
         SESSION_FACTORY = new SqlSessionFactoryBuilder().build(inputStream);
     }
 
-    public static SqlSessionUtil getInstance() {
-        return INSTANCE;
+    public SqlSession openSession() {
+        final SqlSession sqlSession = THREAD_SQL_SESSION.get();
+        if (Objects.nonNull(sqlSession)) {
+            return sqlSession;
+        }
+
+        return SESSION_FACTORY.openSession(true);
     }
 
     /**
      * 功能描述: 从当前线程获取SqlSession
      */
-    public SqlSession openSession() {
+    public SqlSession txOpenSession() {
         SqlSession sqlSession = THREAD_SQL_SESSION.get();
         if (Objects.isNull(sqlSession)) {
             sqlSession = SESSION_FACTORY.openSession(false);
@@ -48,7 +51,5 @@ public class SqlSessionUtil {
         THREAD_SQL_SESSION.remove();
     }
 
-    private SqlSessionUtil() {
 
-    }
 }

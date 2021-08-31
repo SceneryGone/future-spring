@@ -10,34 +10,30 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class TransactionManager {
 
-    private static final TransactionManager INSTANCE = new TransactionManager();
+    private SqlSessionUtil sqlSessionUtil;
 
-    public static TransactionManager getInstance() {
-        return INSTANCE;
+    public void setSqlSessionUtil(SqlSessionUtil sqlSessionUtil) {
+        this.sqlSessionUtil = sqlSessionUtil;
     }
 
     public void begin() {
-        SqlSessionUtil.getInstance().openSession();
+        sqlSessionUtil.txOpenSession();
     }
 
     public void commit() {
-        try (SqlSession sqlSession = SqlSessionUtil.getInstance().openSession()) {
+        try (SqlSession sqlSession = sqlSessionUtil.txOpenSession()) {
             sqlSession.commit();
         } finally {
-            SqlSessionUtil.getInstance().remove();
+            sqlSessionUtil.remove();
         }
     }
 
     public void rollback() {
-        try (SqlSession sqlSession = SqlSessionUtil.getInstance().openSession()) {
+        try (SqlSession sqlSession = sqlSessionUtil.txOpenSession()) {
             sqlSession.rollback();
         } finally {
-            SqlSessionUtil.getInstance().remove();
+            sqlSessionUtil.remove();
         }
     }
 
-
-    private TransactionManager() {
-
-    }
 }

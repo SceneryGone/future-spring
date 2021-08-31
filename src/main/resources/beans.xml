@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans>
 
-    <bean id="userDao" class="com.future.dao.UserDaoImpl"/>
+    <bean id="userDao" class="com.future.dao.UserDaoImpl">
+        <property name="sqlSessionUtil" ref="sqlSessionUtil"/>
+    </bean>
 
     <bean id="userService" class="com.future.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="sqlSessionUtil" class="com.future.util.SqlSessionUtil"/>
+
+    <bean id="transactionManager" class="com.future.util.TransactionManager">
+        <property name="sqlSessionUtil" ref="sqlSessionUtil"/>
+    </bean>
+
+    <bean id="proxyFactory" class="com.future.factory.ProxyFactory">
+        <property name="transactionManager" ref="transactionManager"/>
     </bean>
 
 </beans>

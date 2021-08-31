@@ -15,23 +15,29 @@ import java.util.List;
  */
 public class UserDaoImpl implements UserDao {
 
+    private SqlSessionUtil sqlSessionUtil;
+
+    public void setSqlSessionUtil(SqlSessionUtil sqlSessionUtil) {
+        this.sqlSessionUtil = sqlSessionUtil;
+    }
+
     @Override
     public List<User> selectAll() {
-        SqlSession sqlSession = SqlSessionUtil.getInstance().openSession();
+        SqlSession sqlSession = sqlSessionUtil.openSession();
         final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         return mapper.selectAll();
     }
 
     @Override
     public User selectById(Integer id) {
-        SqlSession sqlSession = SqlSessionUtil.getInstance().openSession();
+        SqlSession sqlSession = sqlSessionUtil.openSession();
         final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         return mapper.selectById(id);
     }
 
     @Override
     public int update(User user) {
-        SqlSession sqlSession = SqlSessionUtil.getInstance().openSession();
+        SqlSession sqlSession = sqlSessionUtil.openSession();
         final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         return mapper.updateByPrimaryId(user);
     }
