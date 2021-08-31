@@ -77,7 +77,7 @@ public class XmlBeanConfigBuilder {
             log.error("parse bean xml error: ", e);
         }
 
-        log.info("init beanMap success");
+        log.info("init bean success");
     }
 
 

@@ -24,6 +24,9 @@ public class SqlSessionUtil {
         SESSION_FACTORY = new SqlSessionFactoryBuilder().build(inputStream);
     }
 
+    /**
+     * 功能描述: 当前线程已经有SqlSession 说明在service事务层获取过了 直接拿即可
+     */
     public SqlSession openSession() {
         final SqlSession sqlSession = THREAD_SQL_SESSION.get();
         if (Objects.nonNull(sqlSession)) {
