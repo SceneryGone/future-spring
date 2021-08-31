@@ -49,8 +49,10 @@ public class SqlSessionUtil {
         return sqlSession;
     }
 
+    /**
+     * 功能描述: 从ThreadLocal中移除
+     */
     public void remove() {
-        // 从ThreadLocal中移除
         THREAD_SQL_SESSION.remove();
     }
 
