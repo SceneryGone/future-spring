@@ -17,4 +17,5 @@ public interface UserMapper {
     User selectById(Integer fromId);
 
     int updateByPrimaryId(User fromUser);
+
 }

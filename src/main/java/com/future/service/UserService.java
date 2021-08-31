@@ -14,5 +14,8 @@ public interface UserService {
 
     List<User> selectAll();
 
-    Boolean transferPoint(Integer fromId, Integer toId, Integer points);
+    /**
+     * 功能描述: 积分转移
+     */
+    void transferPoint(Integer fromId, Integer toId, Integer points);
 }

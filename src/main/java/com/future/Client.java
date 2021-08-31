@@ -4,6 +4,8 @@ import com.future.factory.BeanFactory;
 import com.future.service.UserService;
 import sun.jvm.hotspot.utilities.Assert;
 
+import java.lang.reflect.Method;
+
 /**
  * 功能描述:
  *
@@ -12,9 +14,21 @@ import sun.jvm.hotspot.utilities.Assert;
  */
 public class Client {
 
-    public static void main(String[] args) {
-        final UserService userService = (UserService) BeanFactory.getBean("userService");
-        final Boolean transferPoint = userService.transferPoint(1, 2, 1);
-        Assert.that(transferPoint.equals(Boolean.TRUE), "transferPoint error");
+
+    public static void main(String[] args) throws Exception {
+//        final Class<?> aClass = Class.forName("com.future.Client");
+//        final Object client = aClass.newInstance();
+//        final Method method = aClass.getDeclaredMethod("testTransfer", null);
+//        method.invoke(client, null);
+
+        final Client client = new Client();
+        client.testTransfer();
     }
+
+
+    private void testTransfer() {
+        final UserService userService = (UserService) BeanFactory.getBean("userService");
+        userService.transferPoint(1, 2, 1);
+    }
+
 }

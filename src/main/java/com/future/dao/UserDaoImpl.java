@@ -17,26 +17,23 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> selectAll() {
-        try (SqlSession sqlSession = SqlSessionUtil.openSession()) {
-            final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            return mapper.selectAll();
-        }
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        return mapper.selectAll();
     }
 
     @Override
-    public Boolean transferPoint(Integer fromId, Integer toId, Integer points) {
-        try (SqlSession sqlSession = SqlSessionUtil.openSession()) {
-            final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            User fromUser = mapper.selectById(fromId);
-            User toUser = mapper.selectById(toId);
+    public User selectById(Integer id) {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        return mapper.selectById(id);
+    }
 
-            fromUser.setPoints(fromUser.getPoints() - points);
-            toUser.setPoints(toUser.getPoints() + points);
-
-            mapper.updateByPrimaryId(fromUser);
-            mapper.updateByPrimaryId(toUser);
-        }
-        return Boolean.TRUE;
+    @Override
+    public int update(User user) {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        final UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        return mapper.updateByPrimaryId(user);
     }
 
 }

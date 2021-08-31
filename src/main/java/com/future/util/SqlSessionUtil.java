@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * 功能描述:
@@ -18,15 +19,36 @@ public class SqlSessionUtil {
 
     }
 
+    private static final ThreadLocal<SqlSession> THREAD_SQL_SESSION = new ThreadLocal<>();
+
     private static final SqlSessionFactory SESSION_FACTORY;
+
 
     static {
         final InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SESSION_FACTORY = new SqlSessionFactoryBuilder().build(inputStream);
     }
 
+    /**
+     * 功能描述: 从当前线程获取链接
+     */
     public static SqlSession openSession() {
-        return SESSION_FACTORY.openSession(true);
+        SqlSession sqlSession = THREAD_SQL_SESSION.get();
+        if (Objects.isNull(sqlSession)) {
+            sqlSession = SESSION_FACTORY.openSession(false);
+            THREAD_SQL_SESSION.set(sqlSession);
+        }
+
+        return sqlSession;
+    }
+
+    public static void commit() {
+        try (SqlSession sqlSession = THREAD_SQL_SESSION.get()) {
+            sqlSession.commit();
+        }
+
+        // 从ThreadLocal中移除
+        THREAD_SQL_SESSION.remove();
     }
 
 }

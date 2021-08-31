@@ -1,6 +1,7 @@
 package com.future.dao;
 
 import com.future.db.User;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface UserDao {
 
     List<User> selectAll();
 
-    Boolean transferPoint(Integer fromId, Integer toId, Integer points);
+    User selectById(Integer id);
+
+    int update(User user);
 }
