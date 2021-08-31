@@ -1,6 +1,5 @@
-package com.future.transaction;
+package com.future.util;
 
-import com.future.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 
 /**

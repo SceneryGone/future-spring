@@ -3,7 +3,7 @@ package com.future.service;
 import com.future.dao.UserDao;
 import com.future.db.User;
 import com.future.exception.BizException;
-import com.future.transaction.TransactionManager;
+import com.future.util.TransactionManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

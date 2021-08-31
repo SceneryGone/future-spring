@@ -19,14 +19,16 @@ import java.util.List;
 public class Client {
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+
+        final Client client = new Client();
+
 //        final Class<?> aClass = Class.forName("com.future.Client");
 //        final Object client = aClass.newInstance();
 //        final Method method = aClass.getDeclaredMethod("testTransfer", null);
 //        method.invoke(client, null);
 
-        final Client client = new Client();
-        client.testTransfer();
+//        client.testTransfer();
 //        client.selectAll();
     }
 
