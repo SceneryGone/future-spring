@@ -1,5 +1,6 @@
-package com.future.util;
+package com.future.transaction;
 
+import com.future.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -12,14 +13,9 @@ public class TransactionManager {
 
     private static final TransactionManager INSTANCE = new TransactionManager();
 
-    private TransactionManager() {
-
-    }
-
     public static TransactionManager getInstance() {
         return INSTANCE;
     }
-
 
     public void begin() {
         SqlSessionUtil.getInstance().openSession();
@@ -39,5 +35,10 @@ public class TransactionManager {
         } finally {
             SqlSessionUtil.getInstance().remove();
         }
+    }
+
+
+    private TransactionManager() {
+
     }
 }

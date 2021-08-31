@@ -17,18 +17,20 @@ import java.util.Objects;
 @Slf4j
 public class BeanFactory {
 
-    private BeanFactory() {
-
-    }
-
     private static final Map<String, Object> BEAN_MAP = Maps.newHashMap();
+
+    private static final BeanFactory INSTANCE = new BeanFactory();
+
+    public static BeanFactory getInstance() {
+        return INSTANCE;
+    }
 
     static {
         log.info("begin loading bean...");
         XmlBeanConfigBuilder.getInstance().parse(BEAN_MAP, "beans.xml");
     }
 
-    public static Object getBean(String beanId) {
+    public Object getBean(String beanId) {
         final Object bean = BEAN_MAP.get(beanId);
         if (Objects.isNull(bean)) {
             log.error("not found " + beanId);
@@ -38,4 +40,7 @@ public class BeanFactory {
         return bean;
     }
 
+    private BeanFactory() {
+
+    }
 }

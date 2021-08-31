@@ -15,15 +15,7 @@ import java.util.Objects;
  */
 public class SqlSessionUtil {
 
-    private SqlSessionUtil() {
-
-    }
-
     private static final SqlSessionUtil INSTANCE = new SqlSessionUtil();
-
-    public static SqlSessionUtil getInstance() {
-        return INSTANCE;
-    }
 
     private static final ThreadLocal<SqlSession> THREAD_SQL_SESSION = new ThreadLocal<>();
 
@@ -34,8 +26,12 @@ public class SqlSessionUtil {
         SESSION_FACTORY = new SqlSessionFactoryBuilder().build(inputStream);
     }
 
+    public static SqlSessionUtil getInstance() {
+        return INSTANCE;
+    }
+
     /**
-     * 功能描述: 从当前线程获取链接
+     * 功能描述: 从当前线程获取SqlSession
      */
     public SqlSession openSession() {
         SqlSession sqlSession = THREAD_SQL_SESSION.get();
@@ -52,4 +48,7 @@ public class SqlSessionUtil {
         THREAD_SQL_SESSION.remove();
     }
 
+    private SqlSessionUtil() {
+
+    }
 }

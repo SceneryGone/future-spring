@@ -1,7 +1,6 @@
 package com.future.dao;
 
 import com.future.db.User;
-import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
