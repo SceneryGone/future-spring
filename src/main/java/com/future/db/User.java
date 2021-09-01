@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 功能描述:
+ * 功能描述: user
  *
  * @author future
  * @date 2021-08-30 16:53
